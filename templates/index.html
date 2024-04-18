@@ -12,11 +12,13 @@
 </form>
 
 <div id="response"></div>
+<div id="loading" style="display: none;">Loading...</div>
 
 <script>
 document.getElementById('urlForm').addEventListener('submit', function(event) {
   event.preventDefault();
   const url = document.getElementById('url').value;
+  document.getElementById('loading').style.display = 'block';
   fetch('/input_url', {
     method: 'POST',
     headers: {
@@ -25,6 +27,7 @@ document.getElementById('urlForm').addEventListener('submit', function(event) {
     body: JSON.stringify({ url: url })
   }).then(response => response.json()).then(data => {
     document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+    document.getElementById('loading').style.display = 'none';
   });
 });
 </script>
