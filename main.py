@@ -37,7 +37,7 @@ def extract_info_with_chatgpt(html_content):
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "system", "content": "You are a helpful assistant. Extract the name of the reviewer, the review, the rating, the date, and an image (if available) from the following HTML content."},
             {"role": "user", "content": html_content}
         ]
     )
