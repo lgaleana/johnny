@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, HttpUrl
 import requests
 import openai
+import os
 
 app = FastAPI()
 
@@ -33,7 +34,7 @@ def scrape_url(url):
 
 
 def extract_info_with_chatgpt(html_content):
-    openai.api_key = 'sk-proj-lMvFhax339FEjX8kDn48T3BlbkFJ43tDzL35aQ74okB2ZTFw'
+    openai.api_key = os.getenv('OPENAI_API_KEY')
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
