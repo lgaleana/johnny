@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from fastapi.testclient import TestClient
 from main import app, UrlInput, scrape_url, extract_info_with_chatgpt
+import os
 
 
 class TestMain(unittest.TestCase):
