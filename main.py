@@ -33,7 +33,7 @@ def scrape_url(url):
 
 
 def extract_info_with_chatgpt(html_content):
-    openai.api_key = 'your-api-key'
+    openai.api_key = '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'
     response = openai.ChatCompletion.create(
       model="gpt-3.5-turbo",
       messages=[
