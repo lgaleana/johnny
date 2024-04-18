@@ -4,3 +4,4 @@ uvicorn==0.14.0
 httpx==0.18.2
 pytest-mock==3.6.1
 requests
+openai
