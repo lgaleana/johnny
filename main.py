@@ -21,7 +21,7 @@ def input_url(url_input: UrlInput):
     url = url_input.url
     html_content = scrape_url(url)
     extracted_info = extract_info_with_chatgpt(html_content)
-    return {'message': 'URL received', 'url': url, 'html_content': html_content, 'extracted_info': extracted_info}
+    return {'message': 'URL received', 'url': url, 'extracted_info': extracted_info}
 
 
 def scrape_url(url):
