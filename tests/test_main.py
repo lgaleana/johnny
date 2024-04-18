@@ -33,8 +33,8 @@ class TestMain(unittest.TestCase):
         self.assertEqual(scrape_url(mock_url), mock_html_content)
 
     def test_split_html_content(self):
-        mock_html_content = 'a' * 800000
-        expected_result = ['a' * 400000, 'a' * 400000]
+        mock_html_content = 'a' * 900000
+        expected_result = ['a' * 300000, 'a' * 300000, 'a' * 300000]
         self.assertEqual(split_html_content(mock_html_content), expected_result)
 
     def test_extract_info_with_chatgpt(self):

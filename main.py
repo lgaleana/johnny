@@ -34,7 +34,7 @@ def scrape_url(url):
 
 
 def split_html_content(html_content):
-    return [html_content[i:i+400000] for i in range(0, len(html_content), 400000)]
+    return [html_content[i:i+300000] for i in range(0, len(html_content), 300000)]
 
 
 def extract_info_with_chatgpt(html_content_list):
