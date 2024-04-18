@@ -18,9 +18,8 @@ class TestMain(unittest.TestCase):
 
     def test_input_url(self):
         mock_url = 'http://mocked.url'
-        mock_html_content = '<html><body>Mocked HTML content</body></html>'
         mock_extracted_info = 'Mocked extracted info'
-        mock_response = {'message': 'URL received', 'url': mock_url, 'html_content': mock_html_content, 'extracted_info': mock_extracted_info}
+        mock_response = {'message': 'URL received', 'url': mock_url, 'extracted_info': mock_extracted_info}
         self.client.post = Mock(return_value=Mock(status_code=200, json=lambda: mock_response))
         response = self.client.post('/input_url', json={'url': mock_url})
         self.assertEqual(response.status_code, 200)
