@@ -48,5 +48,5 @@ def extract_info_with_chatgpt(html_content_list):
                 {'role': 'user', 'content': html_content}
             ]
         )
-        extracted_info += response['choices'][0]['message']['content']
+        extracted_info += response['choices'][0]['message']['content'] + '\n-----\n'
     return extracted_info
