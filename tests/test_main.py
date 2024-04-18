@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from fastapi.testclient import TestClient
-from main import app, UrlInput, scrape_url, extract_info_with_chatgpt
+from main import app, UrlInput, scrape_url, extract_info_with_chatgpt, split_html_content
 import os
 
 
@@ -32,8 +32,13 @@ class TestMain(unittest.TestCase):
         scrape_url = Mock(return_value=mock_html_content)
         self.assertEqual(scrape_url(mock_url), mock_html_content)
 
+    def test_split_html_content(self):
+        mock_html_content = 'a' * 800000
+        expected_result = ['a' * 400000, 'a' * 400000]
+        self.assertEqual(split_html_content(mock_html_content), expected_result)
+
     def test_extract_info_with_chatgpt(self):
-        mock_html_content = '<html><body>Mocked HTML content</body></html>'
+        mock_html_content_list = ['<html><body>Mocked HTML content</body></html>', '<html><body>Another mocked HTML content</body></html>']
         mock_extracted_info = 'Mocked extracted info'
         extract_info_with_chatgpt = Mock(return_value=mock_extracted_info)
-        self.assertEqual(extract_info_with_chatgpt(mock_html_content), mock_extracted_info)
+        self.assertEqual(extract_info_with_chatgpt(mock_html_content_list), mock_extracted_info)

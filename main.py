@@ -28,18 +28,25 @@ def scrape_url(url):
     try:
         response = requests.get(url)
         response.raise_for_status()
-        return response.text
+        return split_html_content(response.text)
     except requests.exceptions.RequestException as err:
         raise HTTPException(status_code=400, detail=str(err))
 
 
-def extract_info_with_chatgpt(html_content):
+def split_html_content(html_content):
+    return [html_content[i:i+400000] for i in range(0, len(html_content), 400000)]
+
+
+def extract_info_with_chatgpt(html_content_list):
     openai.api_key = os.getenv('OPENAI_API_KEY')
-    response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo",
-      messages=[
-            {"role": "system", "content": "You are a helpful assistant. Extract the name of the reviewer, the review, the rating, the date, and an image (if available) from the following HTML content."},
-            {"role": "user", "content": html_content}
-        ]
-    )
-    return response['choices'][0]['message']['content']
+    extracted_info = ''
+    for html_content in html_content_list:
+        response = openai.ChatCompletion.create(
+          model='gpt-4-turbo',
+          messages=[
+                {'role': 'system', 'content': 'You are a helpful assistant. Extract the name of the reviewer, the review, the rating, the date, and an image (if available) from the following HTML content.'},
+                {'role': 'user', 'content': html_content}
+            ]
+        )
+        extracted_info += response['choices'][0]['message']['content']
+    return extracted_info
