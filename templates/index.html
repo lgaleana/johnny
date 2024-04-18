@@ -5,10 +5,25 @@
 </head>
 <body>
 <h1>URL Review Extractor</h1>
-<form action="/input_url" method="post">
+<form id="urlForm">
 <label for="url">URL:</label><br>
 <input type="text" id="url" name="url"><br>
 <input type="submit" value="Submit">
 </form>
+
+<script>
+document.getElementById('urlForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const url = document.getElementById('url').value;
+  fetch('/input_url', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ url: url })
+  }).then(response => response.json()).then(data => console.log(data));
+});
+</script>
+
 </body>
 </html>
