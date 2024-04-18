@@ -5,3 +5,4 @@ httpx==0.18.2
 pytest-mock==3.6.1
 requests
 openai
+jinja2==3.0.3
