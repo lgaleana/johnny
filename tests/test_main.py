@@ -10,11 +10,11 @@ class TestMain(unittest.TestCase):
         self.client = TestClient(app)
 
     def test_hello_world(self):
-        mock_response = {'message': 'Hello, Mocked World!'}
-        self.client.get = Mock(return_value=Mock(status_code=200, json=lambda: mock_response))
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), mock_response)
+        self.assertEqual(response.template.name, 'index.html')
+        self.assertIsInstance(response.context, dict)
+        self.assertIn('request', response.context)
 
     def test_input_url(self):
         mock_url = 'http://mocked.url'

@@ -1,4 +1,5 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, HttpUrl
 import requests
 import openai
@@ -6,14 +7,15 @@ import os
 
 app = FastAPI()
 
+templates = Jinja2Templates(directory="templates")
 
 class UrlInput(BaseModel):
     url: HttpUrl
 
 
 @app.get('/')
-def hello_world():
-    return {'message': 'Hello, World!'}
+def hello_world(request: Request):
+    return templates.TemplateResponse('index.html', {'request': request})
 
 
 @app.post('/input_url')
